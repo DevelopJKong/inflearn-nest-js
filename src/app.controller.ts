@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 export class AppController { // 의존성 주입 패턴
   constructor(private readonly appService: AppService) {}
 
-  @Get('hello/:id/:name')
+  @Get()
   getHello(): string {
     return this.appService.getHello();
   }
