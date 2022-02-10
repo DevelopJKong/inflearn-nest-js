@@ -1,3 +1,4 @@
+import { PositiveIntPipe } from './../common/pipes/positiveInt.pipe';
 import { CatsService } from './cats.service';
 import {
   Controller,
@@ -27,7 +28,7 @@ export class CatsController {
 
   // cats/:id
   @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe) param) {
+  getOneCat(@Param('id', ParseIntPipe,PositiveIntPipe) param) {
     console.log(param);
     console.log(typeof param);
     
