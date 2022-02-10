@@ -1,41 +1,56 @@
 import { CatsService } from './cats.service';
-import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+  UseFilters,
+} from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/http-exception.filter';
 
 @Controller('cats')
 export class CatsController {
-    constructor(private readonly catsService: CatsService) {
-        
-    }
+  constructor(private readonly catsService: CatsService) {}
 
-    // cats/
-    @Get()
-    getAllCat() {
-        return 'all cat';
-    }
+  // cats/
+  @Get()
+  @UseFilters(HttpExceptionFilter)
+  getAllCat() {
+    throw new HttpException('api broken', 401);
+    return 'all cat';
+  }
 
-    // cats/:id
-    @Get(":id")
-    getOneCat() {
-        return 'one cat';
-    }
+  // cats/:id
+  @Get(':id')
+  getOneCat(@Param('id', ParseIntPipe) param) {
+    console.log(param);
+    console.log(typeof param);
+    
+    return 'one cat';
+  }
 
-    @Post()
-    createCat() {
-        return 'create cat';
-    }
+  @Post()
+  createCat() {
+    return 'create cat';
+  }
 
-    @Put(":id")
-    updateCat() {
-        return 'update cat';
-    }
+  @Put(':id')
+  updateCat() {
+    return 'update cat';
+  }
 
-    @Patch(":id")
-    updatePartialCat() {
-        return 'update';
-    }
+  @Patch(':id')
+  updatePartialCat() {
+    return 'update';
+  }
 
-    @Delete()
-    deleteCat() {
-        return 'delete Cat';
-    }
+  @Delete()
+  deleteCat() {
+    return 'delete Cat';
+  }
 }
