@@ -1,18 +1,5 @@
-import { PositiveIntPipe } from './../common/pipes/positiveInt.pipe';
 import { CatsService } from './cats.service';
-import {
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Put,
-  UseFilters,
-} from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { Controller, Get, Post } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
@@ -20,38 +7,27 @@ export class CatsController {
 
   // cats/
   @Get()
-  @UseFilters(HttpExceptionFilter)
-  getAllCat() {
-    throw new HttpException('api broken', 401);
+  getCurrnetCat() {
     return 'all cat';
   }
 
-  // cats/:id
-  @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe,PositiveIntPipe) param) {
-    console.log(param);
-    console.log(typeof param);
-    
-    return 'one cat';
-  }
-
   @Post()
-  createCat() {
-    return 'create cat';
+  async signUp() {
+    return 'signup';
   }
 
-  @Put(':id')
-  updateCat() {
-    return 'update cat';
+  @Post('login')
+  login() {
+    return 'login';
   }
 
-  @Patch(':id')
-  updatePartialCat() {
-    return 'update';
+  @Post('logout')
+  logout() {
+    return 'logout';
   }
 
-  @Delete()
-  deleteCat() {
-    return 'delete Cat';
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg';
   }
 }
