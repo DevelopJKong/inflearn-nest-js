@@ -12,8 +12,6 @@ export class AppController {
     @Body() body: any,
     @Param() params: any,
   ): string {
-    console.log(request);
-    return 'Hello world';
-    // return this.appService.getHello();
+    return this.appService.getHello();
   }
 }
